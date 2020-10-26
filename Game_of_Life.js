@@ -27,6 +27,66 @@ function GenerateGrid(cols, rows) {
   return grid;
 }
 
+function RandomStart(grid){
+  //Random start
+  //fill with booleans
+  for (let i=0; i<cols; i++) {
+    for (let j=0; j<rows; j++) {
+      grid[i][j] = floor(random(2));
+    }
+  }
+}
+
+function GosperGliderGun(grid){
+  //Gosper's Glider Gun
+  
+  for (let i=0; i<cols; i++) {
+    for (let j=0; j<rows; j++) {
+      grid[i][j] = 0;
+    }
+  }
+  
+  grid[1][5] = 1;
+  grid[2][5] = 1;
+  grid[1][6] = 1;
+  grid[2][6] = 1;
+  
+  grid[13][3] = 1;
+  grid[14][3] = 1;
+  grid[12][4] = 1;
+  grid[16][4] = 1;
+  grid[11][5] = 1;
+  grid[17][5] = 1;
+  grid[11][6] = 1;
+  grid[15][6] = 1;
+  grid[17][6] = 1;
+  grid[18][6] = 1;
+  
+  grid[17][7] = 1;
+  grid[11][7] = 1;
+  grid[16][8] = 1;
+  grid[12][8] = 1;
+  grid[14][9] = 1;
+  grid[13][9] = 1;
+
+  grid[25][1] = 1;
+  grid[23][2] = 1;
+  grid[25][2] = 1;
+  grid[21][3] = 1;
+  grid[22][3] = 1;
+  grid[21][4] = 1;
+  grid[22][4] = 1;
+  grid[21][5] = 1;
+  grid[22][5] = 1;
+  grid[23][6] = 1;
+  grid[25][6] = 1;
+  grid[25][7] = 1;
+  
+  grid[35][3] = 1;
+  grid[36][3] = 1;
+  grid[35][4] = 1;
+  grid[36][4] = 1;
+}
 
 function setup() {
   canvas = createCanvas(600, 400);
@@ -37,56 +97,12 @@ function setup() {
 
   grid = GenerateGrid(cols, rows);
   
-  //Random start
-  //fill with booleans
-  for (let i=0; i<cols; i++) {
-    for (let j=0; j<rows; j++) {
-      grid[i][j] = floor(random(2));
-    }
-  }
-  
-  ////Gosper's Glider Gun. Comment out lines 42- 46, uncomment lines 49-88
-  //grid[1][5] = 1;
-  //grid[2][5] = 1;
-  //grid[1][6] = 1;
-  //grid[2][6] = 1;
-  
-  //grid[13][3] = 1;
-  //grid[14][3] = 1;
-  //grid[12][4] = 1;
-  //grid[16][4] = 1;
-  //grid[11][5] = 1;
-  //grid[17][5] = 1;
-  //grid[11][6] = 1;
-  //grid[15][6] = 1;
-  //grid[17][6] = 1;
-  //grid[18][6] = 1;
-  
-  //grid[17][7] = 1;
-  //grid[11][7] = 1;
-  //grid[16][8] = 1;
-  //grid[12][8] = 1;
-  //grid[14][9] = 1;
-  //grid[13][9] = 1;
+  //initialized the grid with random values.
+  RandomStart(grid);
+  //initalize the grid with Gosper's Glider gun.
+  //GosperGliderGun(grid);
+ 
 
-  //grid[25][1] = 1;
-  //grid[23][2] = 1;
-  //grid[25][2] = 1;
-  //grid[21][3] = 1;
-  //grid[22][3] = 1;
-  //grid[21][4] = 1;
-  //grid[22][4] = 1;
-  //grid[21][5] = 1;
-  //grid[22][5] = 1;
-  //grid[23][6] = 1;
-  //grid[25][6] = 1;
-  //grid[25][7] = 1;
-  
-  //grid[35][3] = 1;
-  //grid[36][3] = 1;
-  //grid[35][4] = 1;
-  //grid[36][4] = 1;
-  
   //low framerate set for recording gifs and to make the animation easier to follow along. Comment out to set back to p5js default of 60fps
   frameRate(6);
   
@@ -103,7 +119,7 @@ function neighbors(grid, x, y) {
   
   for(let i=-1; i<2; i++){
     for(let j=-1; j<2; j++) {
-      ////Edges wrap around, to change how the edges behave, uncomment lines 107-109, comment out lines 112-117
+      ////Edges wrap around, to change how the edges behave, uncomment lines 123-125, comment out lines 128-133
       //let col = (x+i+cols) % cols;
       //let row = (y+j+rows) % rows;
       //sum += grid[col][row];
@@ -115,6 +131,7 @@ function neighbors(grid, x, y) {
       catch(err) {
         //sum+=10;
       }
+      
     }
   }
   sum -= grid[x][y];
@@ -173,19 +190,41 @@ function draw() {
   
 }
 
-//For recording gifs
-//function keyPressed(){
-// if (key == "r"){
-//   //Random start
-//  //fill with booleans
-//  for (let i=0; i<cols; i++) {
-//    for (let j=0; j<rows; j++) {
-//      grid[i][j] = floor(random(2));
-//    }
-//  }
-  
-//  recording = true;
-//  elapsedFrames = 0;
-  
-// }
-//}
+
+function keyPressed(){
+  //detects when a key has been pressed
+  //r resets the grid to random values
+  //g resets the grid to Gosper's Glider Gun
+  //1-6 adjust the framerate from 10-60fps in increments of 10fps
+ if (key == "r"){
+   RandomStart(grid);
+    
+   //For recording gifs
+   //recording = true;
+   //elapsedFrames = 0;
+
+ }
+ if (key == 'g'){
+   GosperGliderGun(grid);
+ }
+ 
+ if (key == '1'){
+    frameRate(10);
+ }
+ if (key == '2'){
+    frameRate(20);
+ }
+ if (key == '3'){
+    frameRate(30);
+ }
+ if (key == '4'){
+    frameRate(40);
+ }
+ if (key == '5'){
+    frameRate(50);
+ }
+ if (key == '5'){
+    frameRate(60);
+ }
+ 
+}
