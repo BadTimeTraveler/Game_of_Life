@@ -2,8 +2,8 @@
  Conway's Game of Life implemented in p5js
  
 ## How to Run
-1. Project is hosted [here](https://badtimetraveler.github.io/Game_of_Life/) with GitHub Pages, where you can run the code in browser without needing to download anything!
-2. Download repository and run 'index.html' in your browser.
+Option 1- Project is hosted [here](https://badtimetraveler.github.io/Game_of_Life/) with GitHub Pages, where you can run the code in browser without needing to download anything!
+Option 2- Download repository and run 'index.html' in your browser.
 
 ## Controls
 - 'r' to start a new game with a random start.
