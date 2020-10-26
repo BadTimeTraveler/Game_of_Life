@@ -223,7 +223,7 @@ function keyPressed(){
  if (key == '5'){
     frameRate(50);
  }
- if (key == '5'){
+ if (key == '6'){
     frameRate(60);
  }
  
